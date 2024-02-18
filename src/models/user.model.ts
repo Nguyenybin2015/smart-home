@@ -1,6 +1,7 @@
-class user {
+
+
+export class user {
   constructor() {
-    
   }
   userNameLogin() {}
   googleLogin() {}

@@ -7,7 +7,11 @@
   },
   "dependencies": {
     "@elysiajs/cors": "^0.8.0",
-    "elysia": "latest"
+    "@elysiajs/jwt": "^0.8.0",
+    "@elysiajs/swagger": "^0.8.5",
+    "elysia": "latest",
+    "elysia-helmet": "^1.0.2",
+    "mongoose": "^8.1.0"
   },
   "devDependencies": {
     "bun-types": "latest"

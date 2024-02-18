@@ -1,10 +1,11 @@
 import { Elysia } from "elysia";
 import user from './user.route';
-import admin from './admin.route';
+import auth from './auth.route';
 
 const routes = new Elysia({ prefix: '/api' });
 
+
 routes.use(user);
-routes.use(admin); 
+routes.use(auth);
 
 export default routes;
