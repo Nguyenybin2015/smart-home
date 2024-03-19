@@ -1,70 +1,24 @@
-import Elysia, { t } from "elysia";
-import User, { IUser } from "../schema/user";
+import { Auth } from "../models/auth.model";
 
-async function setAuthToken(userId: string, { set, jwt, setCookie }: any) {
-  const token = await jwt.sign({ id: userId });
-
-  const setCookieOptions = {
-    httpOnly: true,
-    expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
-  };
-
-  set.headers = {
-    "X-Authorization": token,
-  };
-
-  setCookie("token", token, setCookieOptions);
-}
-function otpCode() {
-  
-}
 export async function register({ set, body, jwt, setCookie }: any) {
-  const newUser = new User();
-
-  const { email, password } = body;
-  newUser.email = email;
-  newUser.password = await Bun.password.hash(password);
-
-  const savedUser = await newUser.save();
-
-  const token = await jwt.sign({ id: savedUser._id });
-  set.headers = {
-    "X-Authorization": token,
-  };
-  setCookie("token", token, {
-    httpOnly: true,
-    expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
-  }); // 1 day
-
-  return newUser;
+  try {
+    const newAuth = new Auth({ set, body, jwt, setCookie });
+    const newUser = newAuth.register(body.email, body.password);
+    set.status = 201;
+    return newUser;
+  } catch (error) {
+    set.status = 409;
+    return error;
+  }
 }
 export async function login({ set, body, jwt, setCookie }: any) {
-  const user = await User.findOne({ email: body.email }, body.email);
-  const userProfile = await User.findById(user);
-
-  const isMatch = await Bun.password.verify(
-    body.password,
-    userProfile?.password as string,
-  );
-
-  if (!isMatch) {
-    set.status = 401;
-    return "Wrong password !";
+  try {
+    const newAuth = new Auth({ set, body, jwt, setCookie });
+    const loginUser = newAuth.login(body.email, body.password);
+    set.status = 200;
+    return loginUser;
+  } catch (error) {
+    set.status = 409;
+    return error;
   }
-
-  const token = await jwt.sign({ id: userProfile?._id });
-  set.headers = {
-    "X-Authorization": token,
-  };
-  set.status = 201;
-  setCookie("token", token, {
-    httpOnly: true,
-    expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
-  }); // 1 day
-  set.status = 200;
-  return {
-    message: "You are logged in!",
-    token: token,
-  };
 }
-

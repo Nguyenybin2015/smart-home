@@ -8,7 +8,7 @@ describe('CREATE Users suite', () => {
   it('should fail to create a user that already exists', async () => {
 
     const existingUser = {
-      email: 'jack31g@doe.com',
+      email: 'binbebong@doe.com',
       password: 'test123'
     }
 

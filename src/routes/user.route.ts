@@ -1,10 +1,22 @@
 import { Elysia } from "elysia";
-import { usersController } from "../controllers/user.controller";
+import bearer from "@elysiajs/bearer";
+import jwt from "@elysiajs/jwt";
+import isAuth from "../middlewares/isAuth";
+import * as userController from "../controllers/user.controller";
+
 
 const user = new Elysia({ prefix: "/user" });
 
-// user.get("/", () => "user");
-// user.get("/info", () => "info user");
-user.use(usersController);
+user
+  .use(
+    jwt({
+      name: "jwt",
+      secret: process.env.JWT_ACCESS_SECRET as string,
+    }),
+  )
+  .use(bearer());
+user.get("/all", userController.getAllUser);
+user.get("/info", userController.getUserByID, { beforeHandle: isAuth });
+
 
 export default user;

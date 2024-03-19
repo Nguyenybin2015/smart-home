@@ -1,11 +1,10 @@
-import Elysia, { t } from "elysia";
-import { login, register } from "../services/auth.service";
-import * as messages from "../utils/ErrorMessages";
+import * as authService from "../services/auth.service";
+
 
 export async function registerController ({ set, body, jwt, setCookie }: any) {
   try {
     set.status = 200;
-    return register({ set, body, jwt, setCookie });
+    return authService.register({ set, body, jwt, setCookie });
   } catch (error) {
     set.status = 500;
     return error;
@@ -14,7 +13,7 @@ export async function registerController ({ set, body, jwt, setCookie }: any) {
 export async function loginController ({ set, body, jwt, setCookie }: any) {
   try {
     set.status = 200;
-    return login({ set, body, jwt, setCookie });
+    return authService.login({ set, body, jwt, setCookie });
   } catch (error) {
     set.status = 500;
     return error;
