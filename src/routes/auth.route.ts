@@ -1,8 +1,10 @@
-import jwt from "@elysiajs/jwt";
 import { Elysia, t } from "elysia";
-import { registerController, loginController } from "../controllers/auth.controller";
+import * as authController from "../controllers/auth.controller";
 
 const auth = new Elysia({ prefix: "/auth" });
+
+auth.get("/get-otp", authController.getOTPController);
+auth.put("/verify-otp", authController.verifyOTPController);
 
 auth.guard({
   body: t.Object({
@@ -10,8 +12,7 @@ auth.guard({
     password: t.String(),
   }),
 });
-
-auth.post("/register", registerController);
-auth.post("/login", loginController);
+auth.post("/register", authController.registerController);
+auth.post("/login", authController.loginController);
 
 export default auth;

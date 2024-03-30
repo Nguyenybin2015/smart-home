@@ -1,4 +1,5 @@
 import User from "../schema/user";
+import speakeasy from "speakeasy";
 export class Auth {
   [x: string]: any;
 
@@ -53,7 +54,7 @@ export class Auth {
     return await this.jwt.sign({ id: userId });
   }
 
-  public setupToken(token: string) {
+  private setupToken(token: string) {
     this.set.headers = {
       "X-Authorization": token,
     };
