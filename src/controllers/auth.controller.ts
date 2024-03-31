@@ -36,3 +36,12 @@ export function verifyOTPController({ set, body }: any) {
     return error;
   }
 }
+export function resetPasswordController({ set, body }: any){
+  try {
+    set.status = 200;
+    console.log(body.email)
+  } catch (error) {
+    set.status = 500;
+    return error;
+  }
+}

@@ -9,6 +9,7 @@ import "./config/db";
 
 const app = new Elysia().get("/", () => "Hello Elysia");
 
+
 app.use(cors());
 app.use(helmet());
 app.use(cookie());

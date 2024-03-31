@@ -4,7 +4,7 @@ import { OTP } from "../models/otp.model";
 export async function register({ set, body, jwt, setCookie }: any) {
   try {
     const newAuth = new Auth({ set, body, jwt, setCookie });
-    const newUser = newAuth.register(body.email, body.password);
+    const newUser = newAuth.register(body.name, body.email, body.password, body.phoneNumber);
     set.status = 201;
     return newUser;
   } catch (error) {

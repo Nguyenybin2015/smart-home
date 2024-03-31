@@ -8,10 +8,17 @@ export class Auth {
     this.jwt = jwt;
     this.setCookie = setCookie;
   }
-  async register(email: string, password: string) {
+  async register(
+    name: string,
+    email: string,
+    password: string,
+    phoneNumber: string,
+  ) {
     const newUser = new User();
 
+    newUser.name = name;
     newUser.email = email;
+    newUser.phoneNumber = phoneNumber;
     newUser.password = await Bun.password.hash(password);
 
     const savedUser = await newUser.save();
@@ -30,12 +37,10 @@ export class Auth {
   async login(email: string, password: string) {
     const user = await User.findOne({ email: email }, email);
     const userProfile = await User.findById(user);
-
     const isMatch = await Bun.password.verify(
       password,
       userProfile?.password as string,
     );
-
     if (!isMatch) {
       this.set.status = 401;
       return "Wrong password !";

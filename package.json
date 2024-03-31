@@ -16,6 +16,7 @@
     "elysia": "latest",
     "elysia-helmet": "^1.0.2",
     "mongoose": "^8.1.0",
+    "mqtt": "^5.5.0",
     "nodemailer": "^6.9.13",
     "speakeasy": "^2.0.0"
   },
