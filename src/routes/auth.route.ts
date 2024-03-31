@@ -6,22 +6,16 @@ const auth = new Elysia({ prefix: "/auth" });
 auth.get("/get-otp", authController.getOTPController);
 auth.put("/verify-otp", authController.verifyOTPController);
 
-auth.guard({
-  body: t.Object({
-    email: t.String(),
-  }),
-});
 auth.put("/reset-password", authController.resetPasswordController, {
   body: t.Object({ email: t.String() }),
 });
-auth.guard({
+auth.post("/login", authController.loginController, {
   body: t.Object({
     email: t.String(),
     password: t.String(),
   }),
 });
-auth.post("/login", authController.loginController);
-auth.guard({
+auth.post("/register", authController.registerController, {
   body: t.Object({
     name: t.String(),
     email: t.String(),
@@ -29,6 +23,5 @@ auth.guard({
     phoneNumber: t.String(),
   }),
 });
-auth.post("/register", authController.registerController);
 
 export default auth;

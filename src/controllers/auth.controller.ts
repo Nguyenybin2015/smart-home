@@ -39,7 +39,7 @@ export function verifyOTPController({ set, body }: any) {
 export function resetPasswordController({ set, body }: any){
   try {
     set.status = 200;
-    console.log(body.email)
+    console.log("body.email: " + body.email);
   } catch (error) {
     set.status = 500;
     return error;
