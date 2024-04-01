@@ -32,4 +32,12 @@ export class Device implements IDevice {
     this.mqtt.pub("off");
     console.log(`${this._name} đã được tắt.`);
   }
+  public checkState(): void {
+    this.mqtt.sub();
+    if (this.mqtt.message() === "on") {
+      console.log(`${this._name} đang bật.`);
+    } else {
+      console.log(`${this._name} đang tắt.`);
+    }
+  }
 }

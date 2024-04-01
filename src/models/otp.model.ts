@@ -37,15 +37,16 @@ export class OTP {
   }
   public sendMail(email: string) {
     const token = this.generateOTPcode();
-    const mailForm = mail(token);
+    const subject = "OTP VERIFY";
+    const mailForm = mail(token, subject);
     const mailOptions = {
-      from: 'Nhóm 4',
+      from: "Nhóm 4",
       to: email,
-      subject: 'OTP VERIFY',
+      subject,
       html: mailForm,
     };
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      service: "gmail",
       auth: {
         user: process.env.EMAIL,
         pass: process.env.EMAIL_PASSWORD,
@@ -53,9 +54,32 @@ export class OTP {
     });
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        console.log(error)
+        console.log(error);
       }
-      console.log('Message sent: %s', info.messageId);
+      console.log("Message sent: %s", info.messageId);
+    });
+  }
+  public sendPass(email: string, token: string) {
+    const subject = "Reset Password";
+    const mailForm = mail(token, subject);
+    const mailOptions = {
+      from: "Nhóm 4",
+      to: email,
+      subject,
+      html: mailForm,
+    };
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+      }
+      console.log("Message sent: %s", info.messageId);
     });
   }
 }

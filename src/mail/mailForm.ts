@@ -1,4 +1,4 @@
-export const mail = (token: any) => `<!DOCTYPE html>
+export const mail = (token: string, type: string) => `<!DOCTYPE html>
 <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
 
 <head>
@@ -112,7 +112,7 @@ export const mail = (token: any) => `<!DOCTYPE html>
 															<td class="pad" style="padding-bottom:15px;padding-top:10px;">
 																<div style="font-family: sans-serif">
 																	<div class style="font-size: 14px; font-family: 'Varela Round', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 16.8px; color: #ffffff; line-height: 1.2;">
-																		<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;"><span style="font-size:30px;">OTP Verify</span></p>
+																		<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;"><span style="font-size:30px;">${type}</span></p>
 																	</div>
 																</div>
 															</td>
@@ -124,7 +124,6 @@ export const mail = (token: any) => `<!DOCTYPE html>
 																<div style="font-family: sans-serif">
 																	<div class style="font-size: 14px; font-family: 'Varela Round', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 21px; color: #ffffff; line-height: 1.5;">
 																		<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 21px;">Thank you for choosing Group 4.</p>
-																		<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 21px;">OTP is valid for 1 minutes.</p>
 																	</div>
 																</div>
 															</td>
@@ -157,7 +156,7 @@ export const mail = (token: any) => `<!DOCTYPE html>
 															<td class="pad" style="padding-bottom:10px;padding-left:25px;padding-right:25px;padding-top:10px;">
 																<div style="font-family: sans-serif">
 																	<div class style="font-size: 14px; font-family: 'Varela Round', 'Trebuchet MS', Helvetica, sans-serif; mso-line-height-alt: 21px; color: #7f96ef; line-height: 1.5;">
-																		<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 21px;"><strong>Didn’t request a OTP code?</strong></p>
+																		<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 21px;"><strong>Didn’t request a ${type}?</strong></p>
 																		<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 21px;">You can safely ignore this message.</p>
 																	</div>
 																</div>

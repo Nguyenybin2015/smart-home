@@ -6,9 +6,7 @@ const auth = new Elysia({ prefix: "/auth" });
 auth.get("/get-otp", authController.getOTPController);
 auth.put("/verify-otp", authController.verifyOTPController);
 
-auth.put("/reset-password", authController.resetPasswordController, {
-  body: t.Object({ email: t.String() }),
-});
+
 auth.post("/login", authController.loginController, {
   body: t.Object({
     email: t.String(),

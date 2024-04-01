@@ -48,3 +48,4 @@ export async function verifyOTP({ set, body }: any) {
     return error;
   }
 }
+

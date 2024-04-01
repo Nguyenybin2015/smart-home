@@ -18,8 +18,11 @@ export class MQTT {
     });
   }
   message() {
+    let result: string;
     this.client.on("message", (topic, message) => {
+      result = message.toString()
       console.log(message.toString());
     });
+    return "on";
   }
 }
