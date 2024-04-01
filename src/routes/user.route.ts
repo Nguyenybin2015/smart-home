@@ -20,5 +20,11 @@ user.get("/info", userController.getUserByID, { beforeHandle: isAuth });
 user.put("/reset-password", userController.resetPasswordController, {
   body: t.Object({ email: t.String() }),
 });
+user.put("/reset-password", userController.resetPasswordController, {
+  body: t.Object({ email: t.String() }),
+});
+user.put("/update-password", userController.updatePasswordController, {
+  body: t.Object({ email: t.String(), password: t.String() }),
+});
 
 export default user;

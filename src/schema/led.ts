@@ -1,8 +1,8 @@
 import mongoose, { Document, Schema, model } from 'mongoose';
 
 export interface ILEDState extends Document {
-  isOn: boolean; // Boolean flag indicating LED state (on/off)
-  user: mongoose.Schema.Types.ObjectId; // Reference to the User document using ObjectId
+  isOn: boolean; 
+  user: mongoose.Schema.Types.ObjectId; 
 }
 
 const ledSchema = new Schema<ILEDState>({

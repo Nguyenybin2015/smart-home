@@ -24,15 +24,6 @@ export class user {
     }
     return password;
   }
-  async updatePassword(newPassword: string) {
-    const passwordHashed = Bun.password.hash(newPassword);
-    const filter = { _id: this._id };
-    const update = { password: passwordHashed };
-    const user = await User.findOneAndUpdate(filter, update, {
-      new: true,
-    });
-    return user;
-  }
   async resetPassword(): Promise<string> {
     const newPassword = this.generateRandomPassword();
     const passwordHashed = await Bun.password.hash(newPassword);
@@ -42,5 +33,14 @@ export class user {
       new: true,
     });
     return newPassword;
+  }
+  async updatePassword(newPassword: string) {
+    const passwordHashed = await Bun.password.hash(newPassword);
+    const filter = { _id: this._id };
+    const update = { password: passwordHashed };
+    const user = await User.findOneAndUpdate(filter, update, {
+      new: true,
+    });
+    return user;
   }
 }

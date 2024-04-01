@@ -21,23 +21,29 @@ export class Device implements IDevice {
     this._name = value;
   }
 
-  public turnOn(): void {
+  public turnOn(): string {
     this._isOn = true;
     this.mqtt.pub("on");
-    console.log(`${this._name} đã được bật.`);
+    const message = `${this._name} đã được bật.`;
+    console.log(message);
+    return message;
   }
 
-  public turnOff(): void {
+  public turnOff(): string {
     this._isOn = false;
     this.mqtt.pub("off");
-    console.log(`${this._name} đã được tắt.`);
+    const message = `${this._name} đã được tắt.`;
+    console.log(message);
+    return message;
   }
-  public checkState(): void {
+  public checkState(): boolean {
     this.mqtt.sub();
     if (this.mqtt.message() === "on") {
       console.log(`${this._name} đang bật.`);
+      return true;
     } else {
       console.log(`${this._name} đang tắt.`);
+      return false;
     }
   }
 }
