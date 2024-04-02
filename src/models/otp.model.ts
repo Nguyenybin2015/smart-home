@@ -33,6 +33,7 @@ export class OTP {
       encoding: "base32",
       token: token,
       step: 60,
+      digits: 6,
     });
   }
   public sendMail(email: string) {

@@ -7,7 +7,7 @@ export interface HomeDocument extends Document {
   members: IUser[];
 }
 
-const Home = new Schema({
+const Home = new Schema<HomeDocument>({
   name: {
     type: String,
     required: true,
@@ -26,4 +26,4 @@ const Home = new Schema({
   ],
 });
 
-export default model<HomeDocument>("Home", Home);
+export default model<HomeDocument>("home", Home);

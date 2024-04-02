@@ -15,7 +15,6 @@ export class Auth {
     phoneNumber: string,
   ) {
     const newUser = new User();
-
     newUser.name = name;
     newUser.email = email;
     newUser.phoneNumber = phoneNumber;

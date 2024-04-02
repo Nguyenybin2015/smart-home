@@ -4,7 +4,6 @@ import jwt from "@elysiajs/jwt";
 import isAuth from "../middlewares/isAuth";
 import * as userController from "../controllers/user.controller";
 
-
 const user = new Elysia({ prefix: "/user" });
 
 user
@@ -24,7 +23,10 @@ user.put("/reset-password", userController.resetPasswordController, {
   body: t.Object({ email: t.String() }),
 });
 user.put("/update-password", userController.updatePasswordController, {
-  body: t.Object({ email: t.String(), password: t.String() }),
+  body: t.Object({
+    oldPassword: t.String(),
+    newPassword: t.String(),
+  }),
 });
 
 export default user;

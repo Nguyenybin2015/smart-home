@@ -3,7 +3,8 @@ import * as authService from "../services/auth.service";
 export async function registerController({ set, body, jwt, setCookie }: any) {
   try {
     set.status = 200;
-    return authService.register({ set, body, jwt, setCookie });
+    const email: string = body.email.toLowerCase()
+    return authService.register({ set, jwt, setCookie }, body.name, email, body.password, body.phoneNumber);
   } catch (error) {
     set.status = 500;
     return error;
@@ -12,7 +13,8 @@ export async function registerController({ set, body, jwt, setCookie }: any) {
 export async function loginController({ set, body, jwt, setCookie }: any) {
   try {
     set.status = 200;
-    return authService.login({ set, body, jwt, setCookie });
+    const email: string = body.email.toLowerCase()
+    return authService.login({ set, jwt, setCookie }, email, body.password);
   } catch (error) {
     set.status = 500;
     return error;
@@ -30,7 +32,7 @@ export function getOTPController({ set }: any) {
 export function verifyOTPController({ set, body }: any) {
   try {
     set.status = 200;
-    return authService.verifyOTP({ set, body });
+    return authService.verifyOTP({ set }, body.otpCode);
   } catch (error) {
     set.status = 500;
     return error;

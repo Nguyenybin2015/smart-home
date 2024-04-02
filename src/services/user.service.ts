@@ -24,18 +24,18 @@ export async function getUserByIDService({ set }: any, id: string) {
   }
 }
 
-export async function resetPassword({ set, body }: any) {
+export async function resetPassword({ set }: any, email: string) {
   try {
-    const bin = await User.findOne({ email: body.email });
+    const bin = await User.findOne({ email: email });
     if (bin) {
       const user1 = new user(bin._id.toString());
       const newPassword = await user1.resetPassword();
       const newOTP = new OTP();
-      const otpCode = newOTP.sendPass(body.email, newPassword);
+      const otpCode = newOTP.sendPass(email, newPassword);
       set.status = 200;
       return { newPassword };
     } else {
-      console.log("User not found with email:", body.email);
+      console.log("User not found with email:", email);
     }
   } catch (error) {
     set.status = 409;
@@ -43,17 +43,30 @@ export async function resetPassword({ set, body }: any) {
   }
 }
 
-export async function updatePassword({ set, body }: any) {
+export async function updatePassword(
+  { set }: any,
+  id: string,
+  oldPassword: string,
+  newPassword: string,
+) {
   try {
-    const bin = await User.findOne({ email: body.email });
-    if (bin) {
-      const user1 = new user(bin._id.toString());
-      const newPassword = await user1.updatePassword(body.password);
+    const bin = await User.findOne({ _id: id });
 
+    if (bin) {
+      const user1 = new user(id);
+      const isMatch = await Bun.password.verify(
+        oldPassword,
+        bin?.password as string,
+      );
+      if (!isMatch) {
+        set.status = 401;
+        return "Wrong password !";
+      }
+      const result = await user1.updatePassword(newPassword);
       set.status = 200;
       return { newPassword };
     } else {
-      console.log("User not found with email:", body.email);
+      console.log("User not found");
     }
   } catch (error) {
     set.status = 409;
