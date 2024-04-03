@@ -11,7 +11,6 @@ export function ledControl({set, body}: any) {
 export function fanControl({set, body}: any) {
   try {
     set.status = 200;
-    console.log(body.topic)
     return controlDeviceService.fanControlService({set, body});
   } catch (error) {
     set.status = 500;
